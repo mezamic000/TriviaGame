@@ -1,0 +1,42 @@
+On click event for when person clicks start game button
+    -instructions and start button disappear
+    -timer appears
+    -First Question appears
+    - 4 clickable choices appear
+
+Create a timer for 30 seconds
+    -make numbers turn red once it goes below 10 seconds
+
+Make variable that holds all the questions and choices
+    -make the choices clickable 
+        Function:
+            -if question answered correctly,
+                -question and choices disappear
+                -timer freezes
+                -message appears "Correct!"
+                -image appears
+                -move on to the next question
+            -if question is answered incorrectly,
+                -question and choices disappear
+                -timer freezes
+                -make message appear that says "Incorrect!"
+                -reveal the correct answer.
+                -image appears
+                -move on to the next question
+            -if question goes unanswered and time runs out, 
+                -question and choices disappear
+                -timer freezes
+                -make message appear that says "Out of time!"
+                -reveal the correct answer.
+                -image appears
+                -move on to the next question
+        
+
+Once the gaem is complteted;
+    -timer, questions, and choices disappear
+    -The number of correct, incorrect, and unanswered appears
+    -Restart Button Appears 
+
+Restart button makes the game strat over again.
+
+
