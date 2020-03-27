@@ -1,12 +1,15 @@
 $(document).ready(function() {
 	var seconds = 30;
+	var timer;
+	var choices;
 	var correct = 0;
 	var incorrect = 0;
 	var unanswered = 0;
-	var trivia = [
+	var currentQuestion = 0;
+	var triviaQuestions = [
 		{
-			question: "A man named Michel Lotito once ate an entire...?",
-			choices: ["Airplane", "Blue Whale", "Pack of Cigarettes", "Pizza"],
+			question: "What inanimate object did a man named Michel Lotito once eat?",
+			choices: ["Airplane", "Candle", "Pack of Cigarettes", "Painting"],
 			answer: 0
 		},
 
@@ -71,16 +74,40 @@ $(document).ready(function() {
 		}
 	];
 
-	$("#game").hide();
-	$("#stats").hide();
+	function setup() {
+		$("#game").hide();
+		$("#stats").hide();
+	}
+	setup();
 
 	$("#startBtn").on("click", function() {
-		$("#startMenu").hide();
+		$("#startScreen").hide();
 		startGame();
 	});
 
 	function startGame() {
 		$("#game").show();
+		$("#timer").html(seconds);
+		currentQuestion = 0;
+		correct = 0;
+		incorrect = 0;
+		unanswered = 0;
+		displayQuestion();
+		loadChoices();
+	}
+
+	function displayQuestion() {
+		$("#currentQuestion").html(triviaQuestions[currentQuestion].question);
+	}
+
+	function loadChoices(choices) {
+		for (let i = 0; i < triviaQuestions[currentQuestion].choices.length; i++) {
+			choices = $("<div>");
+			choices.text(triviaQuestions[currentQuestion].choices[i]);
+			choices.attr("data-answer", i);
+			choices.addClass("choice");
+			$("#answerChoices").append(choices);
+		}
 	}
 
 	function countdown() {
