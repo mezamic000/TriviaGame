@@ -97,6 +97,9 @@ $(document).ready(function() {
 	}
 
 	function displayQuestion() {
+		seconds = 30; //starting timer at 30 seconds
+		timer = setInterval(countDown, 1000); // waiting a second before funning countDown function
+
 		$("#currentQuestion").html(triviaQuestions[currentQuestion].question);
 	}
 
@@ -110,10 +113,19 @@ $(document).ready(function() {
 		}
 	}
 
-	function countdown() {
-		seconds = 30;
-		$("#timer").html("00:" + seconds);
-		answered = true;
-		time = setInterval();
+	function countDown() {
+		seconds--;
+		$("#timer").html(seconds);
+
+		if (seconds === 0) {
+			clearInterval(timer); //stops timer
+			unanswered++; //time ran out so person failed to answer the question - adds 1 to unaswered score.
+			nextQuestion();
+		}
+	}
+
+	function nextQuestion() {
+		currentQuestion++;
+		displayQuestion();
 	}
 });
