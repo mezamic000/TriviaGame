@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	var seconds = 30;
 	var correct = 0;
 	var incorrect = 0;
 	var unanswered = 0;
@@ -69,4 +70,23 @@ $(document).ready(function() {
 			answer: 3
 		}
 	];
+
+	$("#game").hide();
+	$("#stats").hide();
+
+	$("#startBtn").on("click", function() {
+		$("#startMenu").hide();
+		startGame();
+	});
+
+	function startGame() {
+		$("#game").show();
+	}
+
+	function countdown() {
+		seconds = 30;
+		$("#timer").html("00:" + seconds);
+		answered = true;
+		time = setInterval();
+	}
 });
