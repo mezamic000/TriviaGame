@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var seconds = 30;
+	var seconds = 2;
 	var timer;
 	var choices;
 	var correct = 0;
@@ -93,11 +93,10 @@ $(document).ready(function() {
 		incorrect = 0;
 		unanswered = 0;
 		displayQuestion();
-		loadChoices();
 	}
 
 	function displayQuestion() {
-		seconds = 30; //starting timer at 30 seconds
+		seconds = 2; //starting timer at 30 seconds
 		timer = setInterval(countDown, 1000); // waiting a second before funning countDown function
 
 		$("#currentQuestion").html(triviaQuestions[currentQuestion].question);
@@ -125,7 +124,14 @@ $(document).ready(function() {
 	}
 
 	function nextQuestion() {
-		currentQuestion++;
-		displayQuestion();
+		//checking if there are anymore questions to display.
+		var isQuestionOver = triviaQuestions.length - 1 === currentQuestion;
+
+		if (isQuestionOver) {
+			console.log("Game is Over!");
+		} else {
+			currentQuestion++;
+			displayQuestion();
+		}
 	}
 });
