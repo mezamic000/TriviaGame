@@ -96,7 +96,7 @@ $(document).ready(function() {
 		$("#game").show();
 		currentQuestion = 0; //Question's start with the first one
 		displayQuestion(); // calls the function that displays the question
-		loadChoices();
+		// loadChoices();
 		$("#timer").html(seconds); //Shows the timer
 		correct = 0; //stats reset to zero
 		incorrect = 0; //stats reset to zero
@@ -107,17 +107,24 @@ $(document).ready(function() {
 		seconds = 5; //starting timer at 30 seconds
 		timer = setInterval(countDown, 1000); // waiting a second before starting countDown function
 		$("#currentQuestion").html(triviaQuestions[currentQuestion].question); //displaying the question on the HTML page
-	}
 
-	function loadChoices() {
-		for (var i = 0; i <= 3; i++) {
+		for (
+			var i = 0;
+			i < triviaQuestions[currentQuestion].choicesList.length;
+			i++
+		) {
 			var choices = $("<div>");
-			choices.text(triviaQuestions[currentQuestion].choicesList[i]);
-			choices.attr({ "data-answer": i });
 			choices.addClass("choice");
+			choices.html(triviaQuestions[currentQuestion].choicesList[i]);
+			// choices.text();
+			choices.attr("data-answer", i);
 			$("#answerChoices").append(choices);
 		}
 	}
+
+	// function loadChoices() {
+
+	// }
 
 	$(document).on("click", ".choice", function() {
 		clearInterval(timer);
@@ -155,8 +162,10 @@ $(document).ready(function() {
 			console.log("Game is Over!");
 		} else {
 			currentQuestion++;
+			$("#answerChoices").empty();
 			displayQuestion();
-			loadChoices();
 		}
 	}
+
+	function displayResults() {}
 });
