@@ -1,12 +1,10 @@
 $(document).ready(function() {
 	var seconds = 5;
 	var timer;
-	var choices;
 	var correct = 0;
 	var incorrect = 0;
 	var unanswered = 0;
 	var currentQuestion;
-	var totalQuestions;
 	var triviaQuestions = [
 		{
 			question: "What inanimate object did a man named Michel Lotito once eat?",
