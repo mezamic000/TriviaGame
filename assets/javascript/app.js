@@ -1,119 +1,143 @@
 $(document).ready(function() {
-	var seconds = 2;
+	var seconds = 5;
 	var timer;
 	var choices;
 	var correct = 0;
 	var incorrect = 0;
 	var unanswered = 0;
-	var currentQuestion = 0;
+	var currentQuestion;
 	var triviaQuestions = [
 		{
 			question: "What inanimate object did a man named Michel Lotito once eat?",
-			choices: ["Airplane", "Candle", "Pack of Cigarettes", "Painting"],
-			answer: 0
+			choicesList: ["Airplane", "Candle", "Pack of Cigarettes", "Painting"],
+			answer: "Airplane"
 		},
 
 		{
 			question: "On Jupiter and Saturn, it rains...?",
-			choices: ["Cats and Dogs", "Diamonds", "Asteroids", "Sand"],
-			answer: 1
+			choicesList: ["Cats and Dogs", "Diamonds", "Asteroids", "Sand"],
+			answer: "Diamonds"
 		},
 
 		{
 			question: "In 16th century France, 400 people died from 		which plaque?",
-			choices: [
+			choicesList: [
 				"The Dancing Plague",
 				"The Black Death",
 				"The Third Plague",
 				"The Twirling Plaque"
 			],
-			answer: 0
+			answer: "The Dancing Plague"
 		},
 
 		{
 			question: "What U.S state is the closest to Africa?",
-			choices: ["Colorado", "New York", "Texas", "Maine"],
-			answer: 3
+			choicesList: ["Colorado", "New York", "Texas", "Maine"],
+			answer: "Maine"
 		},
 
 		{
 			question:
 				"What was the first thing ever bought and sold on 		the Internet?",
-			choices: ["Rubber Duck", "Armoured Tank", "Bag of Weed", "Human Skull"],
-			answer: 2
+			choicesList: [
+				"Rubber Duck",
+				"Armoured Tank",
+				"Bag of Weed",
+				"Human Skull"
+			],
+			answer: "Bag of Weed"
 		},
 
 		{
 			question: "How long does it take to make a Jelly Bean?",
-			choices: ["a Few Hours", "a Week", "6 Months", "a Year"],
-			answer: 1
+			choicesList: ["a Few Hours", "a Week", "6 Months", "a Year"],
+			answer: "a Week"
 		},
 
 		{
 			question: "The CIA once tried to make what species of animal 	into spies?",
-			choices: ["cats", "spiders", "alligators", "moles"],
-			answer: 0
+			choicesList: ["Cats", "Spiders", "Alligators", "Moles"],
+			answer: "Cat"
 		},
 
 		{
 			question: "Boston was nearly destroyed by what substance in 	1919? ",
-			choices: ["water", "molasses", "dirt", "vinegar"],
-			answer: 1
+			choicesList: ["Water", "Molasses", "Dirt", "Vinegar"],
+			answer: "Molasses"
 		},
 
 		{
 			question: "What unusual service can you pay for if you live 	in Brooklyn?",
-			choices: ["Temporary Mom", "Cuddeler", "Ambassador", "Paparazzi"],
-			answer: 0
+			choicesList: ["Temporary Mom", "Cuddeler", "Ambassador", "Paparazzi"],
+			answer: "Temporary Mom"
 		},
 
 		{
 			question: "What was Mickey Mouse called originally? ",
-			choices: ["Walt", "Rooney", "Willie", "Mortimer"],
-			answer: 3
+			choicesList: ["Walt", "Rooney", "Willie", "Mortimer"],
+			answer: "Mortimer`"
 		}
 	];
 
 	function setup() {
-		$("#game").hide();
-		$("#stats").hide();
+		//setting up the main screen
+		$("#game").hide(); //hiding the game elements
+		$("#stats").hide(); //hiding scoring (correct,incorrect, etc)
 	}
 	setup();
 
 	$("#startBtn").on("click", function() {
-		$("#startScreen").hide();
-		startGame();
+		//when start button is clicked...
+		$("#startScreen").hide(); //the start button and instructions hide
+		startGame(); //calling the StartGame function
 	});
 
 	function startGame() {
 		$("#game").show();
-		$("#timer").html(seconds);
-		currentQuestion = 0;
-		correct = 0;
-		incorrect = 0;
-		unanswered = 0;
-		displayQuestion();
+		currentQuestion = 0; //Question's start with the first one
+		displayQuestion(); // calls the function that displays the question
+		loadChoices();
+		$("#timer").html(seconds); //Shows the timer
+		correct = 0; //stats reset to zero
+		incorrect = 0; //stats reset to zero
+		unanswered = 0; //stats reset to zero
 	}
 
 	function displayQuestion() {
-		seconds = 2; //starting timer at 30 seconds
-		timer = setInterval(countDown, 1000); // waiting a second before funning countDown function
-
-		$("#currentQuestion").html(triviaQuestions[currentQuestion].question);
+		seconds = 5; //starting timer at 30 seconds
+		timer = setInterval(countDown, 1000); // waiting a second before starting countDown function
+		$("#currentQuestion").html(triviaQuestions[currentQuestion].question); //displaying the question on the HTML page
 	}
 
-	function loadChoices(choices) {
-		for (let i = 0; i < triviaQuestions[currentQuestion].choices.length; i++) {
-			choices = $("<div>");
-			choices.text(triviaQuestions[currentQuestion].choices[i]);
-			choices.attr("data-answer", i);
+	function loadChoices() {
+		for (var i = 0; i <= 3; i++) {
+			var choices = $("<div>");
+			choices.text(triviaQuestions[currentQuestion].choicesList[i]);
+			choices.attr({ "data-answer": i });
 			choices.addClass("choice");
 			$("#answerChoices").append(choices);
 		}
 	}
 
+	$(document).on("click", ".choice", function() {
+		clearInterval(timer);
+		var selectedAnswer = $(this).attr("data-answer");
+		var correctAnswer = triviaQuestions[currentQuestion].answer;
+		console.log(correctAnswer);
+
+		if (correctAnswer === selectedAnswer) {
+			correct++;
+			console.log("Win!");
+			nextQuestion();
+		} else {
+			incorrect++;
+			console.log("nope");
+			nextQuestion();
+		}
+	});
+
 	function countDown() {
-		seconds--;
+		seconds--; // time decreasing by 1
 		$("#timer").html(seconds);
 
 		if (seconds === 0) {
@@ -132,6 +156,7 @@ $(document).ready(function() {
 		} else {
 			currentQuestion++;
 			displayQuestion();
+			loadChoices();
 		}
 	}
 });
