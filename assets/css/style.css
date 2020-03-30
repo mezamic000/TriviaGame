@@ -17,3 +17,7 @@ body {
 	border-radius: 5px;
 	cursor: pointer;
 }
+
+#remainingQuestions {
+	margin-top: 20px;
+}

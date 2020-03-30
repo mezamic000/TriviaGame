@@ -6,6 +6,7 @@ $(document).ready(function() {
 	var incorrect = 0;
 	var unanswered = 0;
 	var currentQuestion;
+	var totalQuestions;
 	var triviaQuestions = [
 		{
 			question: "What inanimate object did a man named Michel Lotito once eat?",
@@ -94,9 +95,11 @@ $(document).ready(function() {
 
 	function startGame() {
 		$("#game").show();
+		$("#stats").hide();
 		currentQuestion = 0; //Question's start with the first one
 		displayQuestion(); // calls the function that displays the question
 		// loadChoices();
+
 		$("#timer").html(seconds); //Shows the timer
 		correct = 0; //stats reset to zero
 		incorrect = 0; //stats reset to zero
@@ -120,6 +123,8 @@ $(document).ready(function() {
 			choices.attr("data-answer", i);
 			$("#answerChoices").append(choices);
 		}
+
+		remaingQuestionAmount();
 	}
 
 	// function loadChoices() {
@@ -172,14 +177,23 @@ $(document).ready(function() {
 	function displayResults() {
 		$("#game").hide(); //hiding the game elements
 		$("#stats").show();
-		$("#correct").html("Correct: " + correct);
-		$("#incorrect").html("Incorrect: " + incorrect);
-		$("#unanswered").html("Unanswered: " + unanswered);
+		$("#correct").html("Correct: " + correct); //showing correct score
+		$("#incorrect").html("Incorrect: " + incorrect); //incorrect score
+		$("#unanswered").html("Unanswered: " + unanswered); //unanswered
 	}
 
 	$("#restartBtn").on("click", function() {
-		//when start button is clicked...
+		//when restart button is clicked...
 		$("#startScreen").hide(); //the start button and instructions hide
 		startGame(); //calling the StartGame function
 	});
+
+	function remaingQuestionAmount() {
+		var remaingQuestion = triviaQuestions.length - currentQuestion;
+		var totalQuestions = triviaQuestions.length;
+
+		$("#remainingQuestions").text(
+			"Remaining Questions: " + remaingQuestion + "/" + totalQuestions
+		);
+	}
 });
