@@ -10,13 +10,13 @@ $(document).ready(function() {
 		{
 			question: "What inanimate object did a man named Michel Lotito once eat?",
 			choicesList: ["Airplane", "Candle", "Pack of Cigarettes", "Painting"],
-			answer: "Airplane"
+			answer: 0
 		},
 
 		{
 			question: "On Jupiter and Saturn, it rains...?",
 			choicesList: ["Cats and Dogs", "Diamonds", "Asteroids", "Sand"],
-			answer: "Diamonds"
+			answer: 1
 		},
 
 		{
@@ -27,13 +27,13 @@ $(document).ready(function() {
 				"The Third Plague",
 				"The Twirling Plaque"
 			],
-			answer: "The Dancing Plague"
+			answer: 0
 		},
 
 		{
 			question: "What U.S state is the closest to Africa?",
 			choicesList: ["Colorado", "New York", "Texas", "Maine"],
-			answer: "Maine"
+			answer: 3
 		},
 
 		{
@@ -45,37 +45,37 @@ $(document).ready(function() {
 				"Bag of Weed",
 				"Human Skull"
 			],
-			answer: "Bag of Weed"
+			answer: 2
 		},
 
 		{
 			question: "How long does it take to make a Jelly Bean?",
 			choicesList: ["a Few Hours", "a Week", "6 Months", "a Year"],
-			answer: "a Week"
+			answer: 1
 		},
 
 		{
 			question: "The CIA once tried to make what species of animal 	into spies?",
 			choicesList: ["Cats", "Spiders", "Alligators", "Moles"],
-			answer: "Cat"
+			answer: 0
 		},
 
 		{
 			question: "Boston was nearly destroyed by what substance in 	1919? ",
 			choicesList: ["Water", "Molasses", "Dirt", "Vinegar"],
-			answer: "Molasses"
+			answer: 1
 		},
 
 		{
 			question: "What unusual service can you pay for if you live 	in Brooklyn?",
 			choicesList: ["Temporary Mom", "Cuddeler", "Ambassador", "Paparazzi"],
-			answer: "Temporary Mom"
+			answer: 1
 		},
 
 		{
 			question: "What was Mickey Mouse called originally? ",
 			choicesList: ["Walt", "Rooney", "Willie", "Mortimer"],
-			answer: "Mortimer`"
+			answer: 3
 		}
 	];
 
@@ -129,6 +129,7 @@ $(document).ready(function() {
 	$(document).on("click", ".choice", function() {
 		clearInterval(timer);
 		var selectedAnswer = $(this).attr("data-answer");
+		console.log(this);
 		var correctAnswer = triviaQuestions[currentQuestion].answer;
 		console.log(correctAnswer);
 
@@ -160,6 +161,7 @@ $(document).ready(function() {
 
 		if (isQuestionOver) {
 			console.log("Game is Over!");
+			displayResults();
 		} else {
 			currentQuestion++;
 			$("#answerChoices").empty();
@@ -167,5 +169,17 @@ $(document).ready(function() {
 		}
 	}
 
-	function displayResults() {}
+	function displayResults() {
+		$("#game").hide(); //hiding the game elements
+		$("#stats").show();
+		$("#correct").html("Correct: " + correct);
+		$("#incorrect").html("Incorrect: " + incorrect);
+		$("#unanswered").html("Unanswered: " + unanswered);
+	}
+
+	$("#restartBtn").on("click", function() {
+		//when start button is clicked...
+		$("#startScreen").hide(); //the start button and instructions hide
+		startGame(); //calling the StartGame function
+	});
 });
