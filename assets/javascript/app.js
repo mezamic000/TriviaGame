@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var seconds = 5;
+	var seconds = 20;
 	var timer;
 	var correct = 0;
 	var incorrect = 0;
@@ -105,7 +105,7 @@ $(document).ready(function() {
 	}
 
 	function displayQuestion() {
-		seconds = 5; //starting timer at 30 seconds
+		seconds = 20; //starting timer at 30 seconds
 		timer = setInterval(countDown, 1000); // waiting a second before starting countDown function
 		$("#currentQuestion").html(triviaQuestions[currentQuestion].question); //displaying the question on the HTML page
 
@@ -139,11 +139,11 @@ $(document).ready(function() {
 		if (correctAnswer === selectedAnswer) {
 			correct++;
 			console.log("Win!");
-			nextQuestion();
+			setTimeout(nextQuestion, 3 * 1000);
 		} else {
 			incorrect++;
 			console.log("nope");
-			nextQuestion();
+			setTimeout(nextQuestion, 3 * 1000);
 		}
 	});
 
